@@ -1,10 +1,10 @@
-AI CSV Analyst System
+**AI CSV Analyst System**
 
-An AI-powered data analysis web application that allows users to upload a CSV file and query it using natural language. The system intelligently evaluates the question and returns structured results including:
+An AI-powered data analysis web application that allows users to upload a CSV file and query it using natural language. The system intelligently evaluates each question and returns structured results including:
 
 Exact numeric analysis (totals, rankings, trends)
 
-Missing insights or summaries (for text-based queries)
+Semantic insights from textual data
 
 Automatic chart visualizations
 
@@ -16,17 +16,19 @@ Project Overview
 
 Data analysts typically write Pandas or SQL queries to explore datasets. This project automates that workflow by allowing users to interact with structured data using plain English.
 
-The system works by:
+Instead of manually writing aggregation code, the system:
 
-Accepting a CSV upload
+Accepts a CSV file upload
 
-Accepting a natural language question
+Accepts a natural language question
 
-Automatically determining whether the query requires numeric computation or semantic reasoning
+Automatically determines whether the query requires numeric computation or semantic reasoning
 
-Executing the appropriate AI workflow
+Executes the appropriate AI workflow
 
-Displaying structured results and optional charts in a clean UI
+Displays structured results and optional charts in a clean dashboard
+
+The result is a lightweight AI-powered business intelligence system.
 
 Key Features
 
@@ -34,15 +36,17 @@ Real-time CSV analysis
 
 Smart routing (Compute vs RAG)
 
-Exact dataset-wide aggregation
+Deterministic dataset-wide aggregation
 
 Semantic search over structured rows
+
+Embedding-based retrieval using FAISS
 
 Automated chart generation
 
 Interactive web interface
 
-Safe LLM-generated code execution
+Safe execution of LLM-generated code
 
 Environment-isolated dependency management
 
@@ -51,23 +55,25 @@ Frontend
 
 Streamlit
 
-Core Logic
+Data Processing
 
 Pandas
 
+Python
+
+AI Orchestration
+
 LangChain
+
+OpenAI (GPT-4o-mini)
+
+Vector Search
 
 FAISS
 
-AI Layer
+Visualization
 
-OpenAI API (GPT-4o-mini)
-
-Embedding-based retrieval
-
-Language
-
-Python 3
+Matplotlib
 
 System Architecture
 User Upload CSV
@@ -77,10 +83,10 @@ Streamlit UI
 User Question
         ↓
 Smart Router
-   ↓              ↓
-Compute         RAG
-(Pandas)       (FAISS)
-   ↓              ↓
+     ↙        ↘
+Compute       RAG
+(Pandas)      (FAISS)
+     ↓            ↓
 Structured Result / Insight
         ↓
 Automatic Chart Rendering
@@ -89,13 +95,13 @@ UI Display
 Project Structure
 AI-CSV-Analyst/
 │
-├── streamlit_app.py        # Main application logic
-├── requirements.txt        # Dependencies
+├── streamlit_app.py       # Main application logic
+├── requirements.txt       # Dependencies
 ├── .gitignore
 ├── README.md
 │
-├── screenshots/            # UI screenshots (optional)
-└── sample_data/            # Example CSV files (optional)
+├── screenshots/           # UI screenshots (optional)
+└── sample_data/           # Example CSV files (optional)
 Installation Guide
 1. Clone Repository
 git clone https://github.com/YOUR_USERNAME/ai-csv-analyst.git
@@ -124,7 +130,7 @@ streamlit run streamlit_app.py
 Open in browser:
 
 http://127.0.0.1:8501
-Example Use Case
+Example Use Cases
 Compute Example
 
 Input:
@@ -134,7 +140,9 @@ Top 5 products by Sales
 Output:
 
 Structured ranking table
-Auto-generated bar chart
+
+Automatically generated bar chart
+
 RAG Example
 
 Input:
@@ -144,6 +152,7 @@ Summarize customer complaints
 Output:
 
 Semantic summary based on retrieved dataset rows
+
 Development Workflow
 
 Run locally:
@@ -158,7 +167,7 @@ If port 8501 is already in use:
 
 kill -9 $(lsof -ti :8501)
 
-If OpenAI key not detected:
+If OpenAI key is not detected:
 
 Ensure .env exists
 
@@ -173,17 +182,19 @@ Security Notes
 
 Never commit .env
 
-Keep API keys secure
+Store API keys securely
 
 Use .gitignore
 
-Prevent unsafe code execution
+Restrict unsafe code execution
+
+Validate model-generated outputs before execution
 
 Future Enhancements
 
 Planned improvements:
 
-Hybrid mode (Compute + explanation)
+Hybrid mode (Compute + narrative explanation)
 
 Conversational memory
 
@@ -201,8 +212,10 @@ Performance Considerations
 
 Full dataset deterministic computation via Pandas
 
-Embedding-based retrieval optimized with FAISS
+Efficient embedding retrieval using FAISS
 
 Lightweight Streamlit interface
 
 Controlled LLM execution pipeline
+
+Smart routing reduces unnecessary API calls
