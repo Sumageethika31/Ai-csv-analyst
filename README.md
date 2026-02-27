@@ -1,221 +1,299 @@
-**AI CSV Analyst System**
+# AI CSV Analyst System  
+### Smart Data Assistant (Pandas Compute + RAG + Intelligent Routing)
 
-An AI-powered data analysis web application that allows users to upload a CSV file and query it using natural language. The system intelligently evaluates each question and returns structured results including:
+---
 
-Exact numeric analysis (totals, rankings, trends)
+## Overview
 
-Semantic insights from textual data
+AI CSV Analyst is an AI-powered data analysis web application that allows users to upload structured CSV datasets and query them using natural language.
 
-Automatic chart visualizations
+The system intelligently routes questions to either:
 
-Smart routing between computation and semantic retrieval
+- **Compute Engine (Pandas Agent)** for exact numeric analysis  
+- **RAG Engine (Retrieval-Augmented Generation)** for semantic insights  
 
-This project demonstrates applied AI engineering using Streamlit, LangChain, FAISS, and OpenAI APIs.
+It automatically generates structured results and visualizations using a Streamlit interface.
 
-Project Overview
+This project demonstrates hybrid AI system design by combining deterministic computation with LLM-based reasoning.
 
-Data analysts typically write Pandas or SQL queries to explore datasets. This project automates that workflow by allowing users to interact with structured data using plain English.
+---
 
-Instead of manually writing aggregation code, the system:
+## Problem Statement
 
-Accepts a CSV file upload
+Traditional data analysis requires writing Pandas or SQL queries. Many users struggle to extract insights from datasets without technical expertise.
 
-Accepts a natural language question
+This system bridges that gap by:
 
-Automatically determines whether the query requires numeric computation or semantic reasoning
+1. Accepting CSV uploads  
+2. Allowing natural language questions  
+3. Automatically choosing the correct processing engine  
+4. Returning structured answers and visualizations  
 
-Executes the appropriate AI workflow
+---
 
-Displays structured results and optional charts in a clean dashboard
+## Key Features
 
-The result is a lightweight AI-powered business intelligence system.
+- Natural language dataset querying  
+- Smart routing (Compute vs RAG)  
+- Exact numeric aggregation using Pandas  
+- Embedding-based semantic search with FAISS  
+- Automatic chart generation  
+- Interactive Streamlit UI  
+- Safe execution sandbox  
+- Full-dataset deterministic analysis  
 
-Key Features
+---
 
-Real-time CSV analysis
+## 🛠 Tech Stack
 
-Smart routing (Compute vs RAG)
+### Frontend
+- Streamlit
 
-Deterministic dataset-wide aggregation
+### Backend / Processing
+- Pandas
+- LangChain (modern architecture)
+- FAISS (vector database)
 
-Semantic search over structured rows
+### AI Layer
+- OpenAI API (GPT-4o-mini)
+- Embedding-based retrieval
 
-Embedding-based retrieval using FAISS
+### Language
+- Python 3
 
-Automated chart generation
+---
 
-Interactive web interface
+## System Architecture
 
-Safe execution of LLM-generated code
+```mermaid
+flowchart TD
 
-Environment-isolated dependency management
+    A[User Uploads CSV] --> B[Streamlit UI]
 
-Tech Stack
-Frontend
+    B --> C[User Question]
 
-Streamlit
+    C --> D{Smart Router}
 
-Data Processing
+    D -->|Numeric / Aggregation| E[Compute Engine<br>LLM → Pandas Code]
+    D -->|Semantic / Text| F[RAG Engine<br>FAISS Retrieval]
 
-Pandas
+    E --> G[Execute Pandas Code<br>Full Dataset]
+    G --> H[Structured Result]
 
-Python
+    F --> I[Retrieve Top-K Rows]
+    I --> J[LLM Generates Insight]
 
-AI Orchestration
+    H --> K[Auto Chart Generation]
+    J --> K
 
-LangChain
+    K --> L[Final Response to User]
+```
 
-OpenAI (GPT-4o-mini)
+---
 
-Vector Search
+## Project Structure
 
-FAISS
-
-Visualization
-
-Matplotlib
-
-System Architecture
-User Upload CSV
-        ↓
-Streamlit UI
-        ↓
-User Question
-        ↓
-Smart Router
-     ↙        ↘
-Compute       RAG
-(Pandas)      (FAISS)
-     ↓            ↓
-Structured Result / Insight
-        ↓
-Automatic Chart Rendering
-        ↓
-UI Display
-Project Structure
-AI-CSV-Analyst/
+```
+ai-csv-analyst/
 │
-├── streamlit_app.py       # Main application logic
-├── requirements.txt       # Dependencies
+├── streamlit_app.py        # Main application
+├── requirements.txt        # Dependencies
 ├── .gitignore
 ├── README.md
 │
-├── screenshots/           # UI screenshots (optional)
-└── sample_data/           # Example CSV files (optional)
-Installation Guide
-1. Clone Repository
+├── screenshots/            # UI screenshots (optional)
+└── sample_data/            # Example datasets (optional)
+```
+
+---
+
+## How It Works
+
+### Compute Engine (Pandas Agent)
+
+- LLM generates Pandas code from user question  
+- Code executes on the full dataset  
+- Produces exact numeric results  
+- Generates visualizations automatically  
+
+Best for:
+- Top N queries  
+- Totals and averages  
+- Filtering and grouping  
+- Trend analysis  
+- KPI reporting  
+
+---
+
+### RAG Engine (Semantic Retrieval)
+
+- Converts dataset rows into embeddings  
+- Stores embeddings in FAISS  
+- Retrieves top-k relevant rows  
+- LLM generates contextual answer  
+
+Best for:
+- Summarization  
+- Text search  
+- Comments/notes analysis  
+- Fuzzy semantic questions  
+
+---
+
+### Smart Router
+
+Automatically selects:
+
+- Numeric queries → Compute  
+- Semantic queries → RAG  
+
+This simulates production-grade AI assistant architecture.
+
+---
+
+## Example Queries
+
+### Compute Mode
+
+```
+Top 5 products by Sales
+Total Profit by Region
+Monthly Sales trend
+Average Discount by Segment
+Sales between 2020 and 2021
+```
+
+Output:
+- Structured DataFrame
+- Auto-generated chart
+
+---
+
+### RAG Mode
+
+```
+Summarize customer complaints
+Find rows mentioning shipping delay
+Describe customer feedback trends
+```
+
+Output:
+- Semantic summary generated from retrieved dataset rows
+
+---
+
+## 🧪 Installation Guide
+
+### Clone Repository
+
+```bash
 git clone https://github.com/YOUR_USERNAME/ai-csv-analyst.git
 cd ai-csv-analyst
-2. Create Virtual Environment
+```
+
+### Create Virtual Environment
 
 Mac/Linux:
-
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
+```
 
 Windows:
-
+```bash
 python -m venv .venv
 .venv\Scripts\activate
-3. Install Dependencies
+```
+
+###  Install Dependencies
+
+```bash
 pip install -r requirements.txt
-4. Set Environment Variable
+```
 
-Create a .env file:
+### Add Environment Variable
 
+Create a `.env` file:
+
+```
 OPENAI_API_KEY=your_openai_key_here
-Run Application
+```
+
+---
+
+## ▶️ Run Application
+
+```bash
 streamlit run streamlit_app.py
+```
 
-Open in browser:
+Open browser:
 
+```
 http://127.0.0.1:8501
-Example Use Cases
-Compute Example
+```
 
-Input:
+---
 
-Top 5 products by Sales
+## 🔍 Internal Processing Flow
 
-Output:
+**Compute Mode**
+- LLM generates Pandas code
+- Code safely executed
+- Result stored in DataFrame
+- Chart generated automatically
 
-Structured ranking table
+**RAG Mode**
+- Rows embedded
+- Stored in FAISS
+- Top-k retrieved
+- LLM generates insight
 
-Automatically generated bar chart
+---
 
-RAG Example
+## Security Notes
 
-Input:
+- Never commit `.env`
+- Keep API keys private
+- Use `.gitignore`
+- Restrict unsafe code execution
 
-Summarize customer complaints
+---
 
-Output:
+## Future Enhancements
 
-Semantic summary based on retrieved dataset rows
+- Hybrid mode (Compute + explanation)
+- Conversational memory
+- SQL backend integration
+- Multi-file dataset support
+- Cloud deployment
+- Role-based dashboards
+- Downloadable reports
 
-Development Workflow
+---
 
-Run locally:
+## Why This Project Is Valuable
 
-streamlit run streamlit_app.py
+This repository demonstrates:
 
-Modify code → Save → Streamlit auto-refreshes
+- LLM tool orchestration
+- Hybrid AI architecture
+- Embedding-based retrieval
+- Smart routing logic
+- Applied prompt engineering
+- Production-style application design
+- End-to-end system thinking
 
-Troubleshooting
+Relevant for roles in:
 
-If port 8501 is already in use:
+- AI Engineering  
+- Data Engineering  
+- Data Science  
+- Analytics Engineering  
+- Full-Stack AI Development  
 
-kill -9 $(lsof -ti :8501)
+---
 
-If OpenAI key is not detected:
+## Resume Summary Version
 
-Ensure .env exists
-
-Restart terminal
-
-Verify variable name is correct
-
-If dependency conflicts occur:
-
-pip install --upgrade pip
-Security Notes
-
-Never commit .env
-
-Store API keys securely
-
-Use .gitignore
-
-Restrict unsafe code execution
-
-Validate model-generated outputs before execution
-
-Future Enhancements
-
-Planned improvements:
-
-Hybrid mode (Compute + narrative explanation)
-
-Conversational memory
-
-SQL backend integration
-
-Multi-dataset comparison
-
-Downloadable reports
-
-Cloud deployment
-
-Role-based analytics dashboards
-
-Performance Considerations
-
-Full dataset deterministic computation via Pandas
-
-Efficient embedding retrieval using FAISS
-
-Lightweight Streamlit interface
-
-Controlled LLM execution pipeline
-
-Smart routing reduces unnecessary API calls
+Built an AI-powered CSV analytics assistant integrating LangChain, OpenAI, FAISS, and Pandas to enable natural language querying over structured datasets using hybrid computation and RAG architecture with automated visualization and intelligent routing.
