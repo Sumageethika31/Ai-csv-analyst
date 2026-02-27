@@ -44,7 +44,7 @@ This system bridges that gap by:
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Frontend
 - Streamlit
@@ -60,36 +60,6 @@ This system bridges that gap by:
 
 ### Language
 - Python 3
-
----
-
-## System Architecture
-
-```mermaid
-flowchart TD
-
-    A[User Uploads CSV] --> B[Streamlit UI]
-
-    B --> C[User Question]
-
-    C --> D{Smart Router}
-
-    D -->|Numeric / Aggregation| E[Compute Engine<br>LLM → Pandas Code]
-    D -->|Semantic / Text| F[RAG Engine<br>FAISS Retrieval]
-
-    E --> G[Execute Pandas Code<br>Full Dataset]
-    G --> H[Structured Result]
-
-    F --> I[Retrieve Top-K Rows]
-    I --> J[LLM Generates Insight]
-
-    H --> K[Auto Chart Generation]
-    J --> K
-
-    K --> L[Final Response to User]
-```
-
----
 
 ## Project Structure
 
@@ -182,7 +152,7 @@ Output:
 
 ---
 
-## 🧪 Installation Guide
+## Installation Guide
 
 ### Clone Repository
 
@@ -270,30 +240,3 @@ http://127.0.0.1:8501
 - Role-based dashboards
 - Downloadable reports
 
----
-
-## Why This Project Is Valuable
-
-This repository demonstrates:
-
-- LLM tool orchestration
-- Hybrid AI architecture
-- Embedding-based retrieval
-- Smart routing logic
-- Applied prompt engineering
-- Production-style application design
-- End-to-end system thinking
-
-Relevant for roles in:
-
-- AI Engineering  
-- Data Engineering  
-- Data Science  
-- Analytics Engineering  
-- Full-Stack AI Development  
-
----
-
-## Resume Summary Version
-
-Built an AI-powered CSV analytics assistant integrating LangChain, OpenAI, FAISS, and Pandas to enable natural language querying over structured datasets using hybrid computation and RAG architecture with automated visualization and intelligent routing.
